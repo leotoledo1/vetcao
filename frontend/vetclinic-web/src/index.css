@@ -1,0 +1,102 @@
+:root {
+  --brand: #22c55e;
+  --brand-dark: #166534;
+  --bg-app: #f0fdf4;
+  --bg-gradient: radial-gradient(circle at top left, rgba(34, 197, 94, 0.16), transparent 28%),
+    linear-gradient(180deg, #f7fff8 0%, #f0fdf4 42%, #ecfdf3 100%);
+  --surface: #ffffff;
+  --card-fill: #fcfffd;
+  --soft-fill: #f7fcf8;
+  --text-strong: #133122;
+  --text-muted: #587061;
+  --border-soft: rgba(22, 101, 52, 0.12);
+  --shadow-soft: 0 20px 50px rgba(22, 101, 52, 0.08);
+  --sidebar-top: #0f2f1d;
+  --sidebar-bottom: #166534;
+  --sidebar-text: #d4f8de;
+  --sidebar-muted: rgba(212, 248, 222, 0.72);
+  --sidebar-hover: rgba(255, 255, 255, 0.08);
+  --sidebar-active: rgba(255, 255, 255, 0.12);
+  --sidebar-border: rgba(255, 255, 255, 0.12);
+  color-scheme: light;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: var(--text-strong);
+  background: var(--bg-app);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:root[data-theme='dark'] {
+  --bg-app: #07140c;
+  --bg-gradient: radial-gradient(circle at top left, rgba(34, 197, 94, 0.16), transparent 22%),
+    linear-gradient(180deg, #07140c 0%, #0a1d11 45%, #0d2214 100%);
+  --surface: #102115;
+  --card-fill: #112418;
+  --soft-fill: #16301e;
+  --text-strong: #ecfdf3;
+  --text-muted: #9fc3ab;
+  --border-soft: rgba(187, 247, 208, 0.12);
+  --shadow-soft: 0 20px 50px rgba(0, 0, 0, 0.28);
+  --sidebar-top: #08160d;
+  --sidebar-bottom: #0f2718;
+  --sidebar-text: #d4f8de;
+  --sidebar-muted: rgba(212, 248, 222, 0.66);
+  --sidebar-hover: rgba(255, 255, 255, 0.06);
+  --sidebar-active: rgba(34, 197, 94, 0.16);
+  --sidebar-border: rgba(187, 247, 208, 0.08);
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--bg-gradient);
+  color: var(--text-strong);
+}
+
+body,
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1,
+h2,
+h3,
+strong {
+  letter-spacing: -0.02em;
+}
+
+a {
+  color: inherit;
+}
