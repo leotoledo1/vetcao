@@ -1,0 +1,20 @@
+1. O front (React + Vite) envia requisicoes HTTP para a API.
+2. O back (ASP.NET Core) recebe essas requisicoes nos Controllers.
+3. Os Controllers chamam Services, UseCases e Repositories para tratar a regra de negocio.
+4. O back responde com JSON ou status HTTP.
+5. O front atualiza a tela com os dados recebidos.
+
+FLUXO USADO NO PROJETO
+
+- O arquivo frontend/vetclinic-web/src/api/api.js centraliza as chamadas fetch.
+- O App.jsx usa essas funcoes para carregar listas, cadastrar, excluir e cancelar.
+- O backend expoe rotas como /Dono/ListarDonos, /Pet/CadastrarPet e /Consulta/Agendar.
+- O Program.cs libera CORS para o front em localhost:5173 conseguir chamar a API.
+
+EXEMPLO SIMPLES
+
+- O usuario cadastra um pet no front.
+- O front envia um POST para a API.
+- O UseCase valida os dados e salva no banco SQLite.
+- A API responde com sucesso.
+- O front recarrega a lista e mostra o pet na tela.

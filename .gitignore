@@ -1,0 +1,6 @@
+.runlogs/
+.vs/
+*.log
+*.out.log
+*.err.log
+logs/

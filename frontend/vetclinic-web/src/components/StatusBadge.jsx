@@ -1,3 +1,4 @@
+// Badge visual para mostrar o status da consulta.
 function StatusBadge({ status }) {
   const normalizedStatus = (status || '').toLowerCase()
   const className =

@@ -1,5 +1,6 @@
 import { Moon, Sun } from 'lucide-react'
 
+// Barra superior com titulo da tela e alternancia de tema.
 function Navbar({ title, subtitle, theme, onToggleTheme }) {
   return (
     <header className="topbar">
