@@ -684,3 +684,55 @@ info: Microsoft.EntityFrameworkCore.Database.Command[20101]
       INNER JOIN "Pets" AS "p" ON "c"."PetId" = "p"."Id"
       INNER JOIN "Veterinarios" AS "v" ON "c"."VeterinarioId" = "v"."Id"
       ORDER BY "c"."DataHora"
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT "d"."Id", "d"."CreatedAt", "d"."Email", "d"."Nome", "d"."RemovedAt", "d"."Telefone", "d"."Cpf"
+      FROM "Donos" AS "d"
+      WHERE "d"."RemovedAt" IS NULL
+      ORDER BY "d"."Nome"
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT "p"."Id", "p"."CreatedAt", "p"."DataNascimento", "p"."DonoId", "p"."Especie", "p"."Nome", "p"."Raca", "p"."RemovedAt", "d"."Id", "d"."CreatedAt", "d"."Email", "d"."Nome", "d"."RemovedAt", "d"."Telefone", "d"."Cpf"
+      FROM "Pets" AS "p"
+      INNER JOIN "Donos" AS "d" ON "p"."DonoId" = "d"."Id"
+      WHERE "p"."RemovedAt" IS NULL
+      ORDER BY "p"."Nome"
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT "v"."Id", "v"."CreatedAt", "v"."Crmv", "v"."Especialidade", "v"."Nome", "v"."RemovedAt"
+      FROM "Veterinarios" AS "v"
+      WHERE "v"."RemovedAt" IS NULL
+      ORDER BY "v"."Nome"
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT "c"."Id", "c"."CreatedAt", "c"."DataHora", "c"."Motivo", "c"."PetId", "c"."RemovedAt", "c"."Status", "c"."VeterinarioId", "p"."Id", "p"."CreatedAt", "p"."DataNascimento", "p"."DonoId", "p"."Especie", "p"."Nome", "p"."Raca", "p"."RemovedAt", "v"."Id", "v"."CreatedAt", "v"."Crmv", "v"."Especialidade", "v"."Nome", "v"."RemovedAt"
+      FROM "Consultas" AS "c"
+      INNER JOIN "Pets" AS "p" ON "c"."PetId" = "p"."Id"
+      INNER JOIN "Veterinarios" AS "v" ON "c"."VeterinarioId" = "v"."Id"
+      ORDER BY "c"."DataHora"
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT "d"."Id", "d"."CreatedAt", "d"."Email", "d"."Nome", "d"."RemovedAt", "d"."Telefone", "d"."Cpf"
+      FROM "Donos" AS "d"
+      WHERE "d"."RemovedAt" IS NULL
+      ORDER BY "d"."Nome"
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT "p"."Id", "p"."CreatedAt", "p"."DataNascimento", "p"."DonoId", "p"."Especie", "p"."Nome", "p"."Raca", "p"."RemovedAt", "d"."Id", "d"."CreatedAt", "d"."Email", "d"."Nome", "d"."RemovedAt", "d"."Telefone", "d"."Cpf"
+      FROM "Pets" AS "p"
+      INNER JOIN "Donos" AS "d" ON "p"."DonoId" = "d"."Id"
+      WHERE "p"."RemovedAt" IS NULL
+      ORDER BY "p"."Nome"
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT "v"."Id", "v"."CreatedAt", "v"."Crmv", "v"."Especialidade", "v"."Nome", "v"."RemovedAt"
+      FROM "Veterinarios" AS "v"
+      WHERE "v"."RemovedAt" IS NULL
+      ORDER BY "v"."Nome"
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT "c"."Id", "c"."CreatedAt", "c"."DataHora", "c"."Motivo", "c"."PetId", "c"."RemovedAt", "c"."Status", "c"."VeterinarioId", "p"."Id", "p"."CreatedAt", "p"."DataNascimento", "p"."DonoId", "p"."Especie", "p"."Nome", "p"."Raca", "p"."RemovedAt", "v"."Id", "v"."CreatedAt", "v"."Crmv", "v"."Especialidade", "v"."Nome", "v"."RemovedAt"
+      FROM "Consultas" AS "c"
+      INNER JOIN "Pets" AS "p" ON "c"."PetId" = "p"."Id"
+      INNER JOIN "Veterinarios" AS "v" ON "c"."VeterinarioId" = "v"."Id"
+      ORDER BY "c"."DataHora"
