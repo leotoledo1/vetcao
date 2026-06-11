@@ -1,6 +1,6 @@
 namespace VetClinic.DTOs
 {
-    // DTO usado pelo front para enviar dados de cadastro de pet.
+                                                                 
     public class CreatePetDTO
     {
         public string Nome { get; set; } = string.Empty;

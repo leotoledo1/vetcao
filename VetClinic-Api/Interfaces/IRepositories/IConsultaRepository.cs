@@ -2,7 +2,7 @@ using VetClinic.Entities;
 
 namespace VetClinic.Interfaces.IRepositories
 {
-    // Contrato do repositorio de consultas.
+                                            
     public interface IConsultaRepository
     {
         public List<Consulta> GetAll();

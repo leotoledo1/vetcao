@@ -1,0 +1,272 @@
+Explicacao dos arquivos do projeto VetClinic
+
+1) VetClinic-Api/Data/Context.cs
+
+Context define o banco de dados do Entity Framework e o mapeamento das entidades.
+- using Microsoft.EntityFrameworkCore;
+  Importa o EF Core para usar DbContext, DbSet e configuracoes de modelo.
+- using VetClinic.Entities;
+  Importa as entidades Dono, Pet, Veterinario e Consulta.
+- namespace VetClinic.Data
+  Define o namespace da classe Context.
+- public class Context : DbContext
+  Cria o contexto do banco herdando de DbContext.
+- public Context(DbContextOptions options) : base(options)
+  Construtor que recebe as opcoes de configuracao do EF e passa para a classe base.
+- public DbSet<Dono> Donos { get; set; }
+  Representa a tabela Donos.
+- public DbSet<Pet> Pets { get; set; }
+  Representa a tabela Pets.
+- public DbSet<Veterinario> Veterinarios { get; set; }
+  Representa a tabela Veterinarios.
+- public DbSet<Consulta> Consultas { get; set; }
+  Representa a tabela Consultas.
+- protected override void OnModelCreating(ModelBuilder modelBuilder)
+  Metodo para configurar o mapeamento de entidades e relacoes.
+- modelBuilder.Entity<Dono>(entity => { ... });
+  Configura a entidade Dono.
+- entity.HasKey(d => d.Id);
+  Define Id como chave primaria.
+- entity.Ignore(d => d.Pets);
+  Nao mapeia a propriedade Pets de Dono no banco.
+- entity.OwnsOne(d => d.Cpf, cpf => { cpf.Property(c => c.Value).HasColumnName("Cpf"); });
+  Mapeia o value object Cpf dentro da tabela Donos, usando coluna Cpf.
+- modelBuilder.Entity<Pet>(entity => { ... });
+  Configura a entidade Pet.
+- entity.HasKey(p => p.Id);
+  Define Id como chave primaria.
+- entity.HasOne(p => p.Dono).WithMany().HasForeignKey(p => p.DonoId);
+  Relaciona Pet ao Dono via DadoId como chave estrangeira.
+- modelBuilder.Entity<Veterinario>(entity => { entity.HasKey(v => v.Id); });
+  Define Veterinario com chave primaria Id.
+- modelBuilder.Entity<Consulta>(entity => { ... });
+  Configura a entidade Consulta.
+- entity.HasKey(c => c.Id);
+  Define Id como chave primaria.
+- entity.HasOne(c => c.Pet).WithMany().HasForeignKey(c => c.PetId);
+  Relaciona Consulta ao Pet via PetId.
+- entity.HasOne(c => c.Veterinario).WithMany().HasForeignKey(c => c.VeterinarioId);
+  Relaciona Consulta ao Veterinario via VeterinarioId.
+- base.OnModelCreating(modelBuilder);
+  Chama a implementacao base para finalizar a configuracao.
+
+2) VetClinic-Api/Repositories/PetRepository.cs
+
+PetRepository implementa IPetRepository e acessa os dados de Pet no banco.
+- using Microsoft.EntityFrameworkCore;
+  Importa Include e outras funcoes de consulta do EF.
+- using VetClinic.Data;
+  Importa o contexto Context.
+- using VetClinic.Entities;
+  Importa a entidade Pet.
+- using VetClinic.Interfaces.IRepositories;
+  Importa a interface IPetRepository.
+- public class PetRepository : IPetRepository
+  Define a classe que segue o contrato do repositorio de pets.
+- public readonly Context _database;
+  Campo para armazenar o contexto injetado.
+- public PetRepository(Context context)
+  Construtor que recebe o contexto por injeção de dependencia.
+- _database = context;
+  Atribui o contexto ao campo interno.
+- public void Create(Pet pet)
+  Adiciona um pet novo ao banco.
+- _database.Pets.Add(pet);
+  Insere o pet no DbSet.
+- _database.SaveChanges();
+  Persiste a alteraçao no banco.
+- public void Delete(Pet pet)
+  Remove o pet do banco.
+- _database.Pets.Remove(pet);
+  Remove do DbSet.
+- public List<Pet> GetAll()
+  Retorna todos os pets ativos.
+- return _database.Pets.Include(p => p.Dono).Where(p => p.RemovedAt == null).OrderBy(p => p.Nome).ToList();
+  Inclui dados do dono, filtra pets nao removidos e ordena por nome.
+- public Pet? FindById(Guid id)
+  Busca pet por id.
+- return _database.Pets.Include(p => p.Dono).Where(p => p.Id == id && p.RemovedAt == null).FirstOrDefault();
+  Inclui dono e retorna o pet ou null.
+- public bool TemConsultaFutura(Guid petId)
+  Verifica se o pet tem alguma consulta futura agendada.
+- return _database.Consultas.Any(c => c.PetId == petId && c.Status == "Agendada" && c.DataHora > DateTime.Now);
+  Retorna true se existe consulta futura para o pet.
+- public void Update(Pet pet)
+  Atualiza o pet existente.
+- _database.Pets.Update(pet);
+  Marca a entidade como modificada.
+
+3) VetClinic-Api/Repositories/VeterinarioRepository.cs
+
+VeterinarioRepository implementa IVeterinarioRepository.
+- using VetClinic.Data;
+  Importa Context.
+- using VetClinic.Entities;
+  Importa Veterinario.
+- using VetClinic.Interfaces.IRepositories;
+  Importa a interface.
+- public class VeterinarioRepository : IVeterinarioRepository
+  Define a classe do repositorio.
+- public readonly Context _database;
+  Campo para contexto.
+- public VeterinarioRepository(Context context)
+  Recebe contexto por injeçao.
+- public void Create(Veterinario veterinario)
+  Adiciona um veterinario.
+- _database.Veterinarios.Add(veterinario);
+  Insere no DbSet.
+- public List<Veterinario> GetAll()
+  Lista veterinarios ativos ordenados por nome.
+- return _database.Veterinarios.Where(v => v.RemovedAt == null).OrderBy(v => v.Nome).ToList();
+- public Veterinario? FindById(Guid id)
+  Busca veterinario por id.
+- return _database.Veterinarios.Where(v => v.Id == id && v.RemovedAt == null).FirstOrDefault();
+  Retorna o veterinario ou null.
+
+4) VetClinic-Api/Repositories/ConsultaRepository.cs
+
+ConsultaRepository implementa IConsultaRepository.
+- using Microsoft.EntityFrameworkCore;
+  Importa Include para carregar relacoes.
+- using VetClinic.Data;
+  Importa Context.
+- using VetClinic.Entities;
+  Importa Consulta.
+- using VetClinic.Interfaces.IRepositories;
+  Importa a interface.
+- public class ConsultaRepository : IConsultaRepository
+  Define a classe do repositorio.
+- public readonly Context _database;
+  Campo para contexto.
+- public ConsultaRepository(Context context)
+  Construtor.
+- public void Create(Consulta consulta)
+  Adiciona uma consulta.
+- _database.Consultas.Add(consulta);
+  Insere no DbSet.
+- public List<Consulta> GetAll()
+  Lista todas as consultas com pet e veterinario.
+- return _database.Consultas.Include(c => c.Pet).Include(c => c.Veterinario).OrderBy(c => c.DataHora).ToList();
+  Carrega as entidades relacionadas e ordena por data.
+- public Consulta? FindById(Guid id)
+  Busca consulta por id.
+- return _database.Consultas.Include(c => c.Pet).Include(c => c.Veterinario).Where(c => c.Id == id).FirstOrDefault();
+  Retorna a consulta ou null.
+- public bool TemConflitoDeHorario(Guid veterinarioId, DateTime dataHora)
+  Verifica se ja existe agendamento pro veterinario no intervalo de +/- 30 minutos.
+- DateTime inicioJanela = dataHora.AddMinutes(-30);
+  Marca o inicio da janela de conflito.
+- DateTime fimJanela = dataHora.AddMinutes(30);
+  Marca o fim da janela.
+- return _database.Consultas.Any(c => c.VeterinarioId == veterinarioId && c.Status == "Agendada" && c.DataHora > inicioJanela && c.DataHora < fimJanela);
+  Retorna true se ha conflito de horario.
+- public void Update(Consulta consulta)
+  Atualiza a consulta.
+- _database.Consultas.Update(consulta);
+  Marca a consulta como modificada.
+
+5) VetClinic-Api/Services/DonoService.cs
+
+DonoService aplica regras de negocio para donos.
+- using VetClinic.DTOs;
+  Importa DTOs usados para entrada de dados.
+- using VetClinic.Entities;
+  Importa Dono.
+- using VetClinic.Interfaces.IRepositories;
+  Importa IDonoRepository.
+- using VetClinic.Interfaces.IServices;
+  Importa IDonoService.
+- using VetClinic.ValueObjects;
+  Importa Cpf.
+- public class DonoService : IDonoService
+  Implementa a interface do servico.
+- private readonly IDonoRepository _repository;
+  Campo para o repositorio de donos.
+- public DonoService(IDonoRepository repository)
+  Construtor que recebe o repositorio.
+- public void CriarDono(CreateDonoDTO dto)
+  Metodo que cria um dono com validacoes.
+- var cpf = new string(dto.Cpf.Where(char.IsDigit).ToArray());
+  Remove caracteres nao numericos do CPF.
+- bool cpfExiste = _repository.CpfJaExiste(cpf);
+  Verifica se CPF ja existe.
+- if (cpfExiste) { throw new Exception("CPF já cadastrado no sistema"); }
+  Lanca erro se CPF duplicado.
+- Dono dono = new Dono();
+  Cria nova entidade Dono.
+- dono.Nome = dto.Nome;
+- dono.Cpf = new Cpf(dto.Cpf);
+- dono.Telefone = dto.Telefone;
+- dono.Email = dto.Email;
+- dono.CreatedAt = DateTime.Now;
+  Preenche os dados do dono.
+- _repository.Create(dono);
+  Salva o dono no banco.
+- public void DeletarDono(Guid id)
+  Metodo para remover logicamente um dono.
+- Dono? dono = _repository.FindById(id);
+  Busca o dono no banco.
+- if (dono == null) { throw new Exception("Dono não encontrado"); }
+  Se nao achar, retorna erro.
+- dono.RemovedAt = DateTime.Now;
+  Marca o dono como removido.
+- _repository.Update(dono);
+  Salva a alteracao.
+- public Dono? GetById(Guid id)
+  Busca dono por id.
+- public List<Dono> ListarDonos()
+  Lista todos os donos.
+
+6) VetClinic-Api/Services/ConsultaService.cs
+
+ConsultaService retorna consulta e lista de consultas.
+- public class ConsultaService : IConsultaService
+  Implementa a interface de servico de consultas.
+- private readonly IConsultaRepository _repository;
+  Campo para repositorio.
+- public ConsultaService(IConsultaRepository repository)
+  Construtor.
+- public Consulta? GetById(Guid id)
+  Busca uma consulta por id.
+- public List<Consulta> ListarConsultas()
+  Retorna todas as consultas.
+
+7) Interfaces
+
+IDonoRepository:
+- List<Dono> GetAll();
+- Dono? FindById(Guid id);
+- bool CpfJaExiste(string cpf);
+- void Create(Dono dono);
+- void Update(Dono dono);
+- void Delete(Dono dono);
+
+IPetRepository:
+- List<Pet> GetAll();
+- Pet? FindById(Guid id);
+- void Create(Pet pet);
+- void Update(Pet pet);
+- void Delete(Pet pet);
+- bool TemConsultaFutura(Guid petId);
+
+IVeterinarioRepository:
+- List<Veterinario> GetAll();
+- Veterinario? FindById(Guid id);
+- void Create(Veterinario veterinario);
+
+IConsultaRepository:
+- List<Consulta> GetAll();
+- Consulta? FindById(Guid id);
+- void Create(Consulta consulta);
+- void Update(Consulta consulta);
+- bool TemConflitoDeHorario(Guid veterinarioId, DateTime dataHora);
+
+IDonoService:
+- List<Dono> ListarDonos();
+- Dono? GetById(Guid id);
+- void CriarDono(CreateDonoDTO dto);
+- void DeletarDono(Guid id);
+
+IConsultaService:
+- List<Consulta> ListarConsultas();
+- Consulta? GetById(Guid id);

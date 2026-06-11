@@ -2,7 +2,7 @@ using VetClinic.Entities;
 
 namespace VetClinic.Interfaces.IRepositories
 {
-    // Contrato do repositorio de donos.
+                                        
     public interface IDonoRepository
     {
         public List<Dono> GetAll();

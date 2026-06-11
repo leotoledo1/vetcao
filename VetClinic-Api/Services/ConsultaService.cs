@@ -4,7 +4,7 @@ using VetClinic.Interfaces.IServices;
 
 namespace VetClinic.Services
 {
-    // Camada de leitura das consultas usadas pelo controller.
+                                                              
     public class ConsultaService : IConsultaService
     {
         private readonly IConsultaRepository _repository;

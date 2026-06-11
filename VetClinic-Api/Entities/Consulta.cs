@@ -1,6 +1,6 @@
 namespace VetClinic.Entities
 {
-    // Entidade que guarda os dados da consulta veterinaria.
+                                                            
     public class Consulta : EntityBase
     {
         public Guid PetId { get; set; }

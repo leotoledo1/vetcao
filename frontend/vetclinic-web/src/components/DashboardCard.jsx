@@ -1,4 +1,4 @@
-// Card de resumo usado no dashboard principal.
+                                               
 function DashboardCard({ icon: Icon, label, value, accent, helper }) {
   return (
     <article className="dashboard-card" data-accent={accent}>

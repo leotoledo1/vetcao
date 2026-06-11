@@ -1,6 +1,6 @@
 namespace VetClinic.ValueObjects
 {
-    // Value Object que normaliza e valida o CPF.
+                                                 
     public class Cpf
     {
         public string Value { get; private set; }

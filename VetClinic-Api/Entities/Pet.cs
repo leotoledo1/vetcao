@@ -1,6 +1,6 @@
 namespace VetClinic.Entities
 {
-    // Entidade que representa cada pet cadastrado no sistema.
+                                                              
     public class Pet : EntityBase
     {
         public string Nome { get; set; } = string.Empty;

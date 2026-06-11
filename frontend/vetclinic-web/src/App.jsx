@@ -24,7 +24,7 @@ import Navbar from './components/Navbar'
 import Sidebar from './components/Sidebar'
 import StatusBadge from './components/StatusBadge'
 
-// Componente principal: busca dados na API e monta as telas da clinica.
+                                                                        
 const screenMeta = {
   dashboard: {
     title: 'Dashboard',
@@ -109,7 +109,7 @@ function App() {
   }, [theme])
 
   useEffect(() => {
-    // Carrega tudo uma vez ao abrir o app.
+                                           
     carregarTudo({ initial: true })
   }, [])
 
@@ -121,7 +121,7 @@ function App() {
     }
 
     try {
-      // Busca os dados principais em paralelo para deixar a tela pronta rapido.
+                                                                                
       const [listaDonos, listaPets, listaConsultas, listaVeterinarios] = await Promise.all([
         listarDonos(),
         listarPets(),
@@ -142,7 +142,7 @@ function App() {
   }
 
   function limparMensagens() {
-    // Limpa feedback anterior antes de uma nova acao.
+                                                      
     setMensagem('')
     setErro('')
   }
@@ -164,7 +164,7 @@ function App() {
     limparMensagens()
 
     try {
-      // Envia os dados do formulario para o back e atualiza a lista depois.
+                                                                            
       await cadastrarDono(donoForm)
       setMensagem('Dono cadastrado com sucesso.')
       setDonoForm({
@@ -184,7 +184,7 @@ function App() {
     limparMensagens()
 
     try {
-      // O cadastro de pet depende do dono selecionado no select.
+                                                                 
       await cadastrarPet(petForm)
       setMensagem('Pet cadastrado com sucesso.')
       setPetForm({
@@ -205,7 +205,7 @@ function App() {
     limparMensagens()
 
     try {
-      // O back valida pet, veterinario e conflito de horario.
+                                                              
       await agendarConsulta(consultaForm)
       setMensagem('Consulta agendada com sucesso.')
       setConsultaForm({
@@ -229,7 +229,7 @@ function App() {
     limparMensagens()
 
     try {
-      // A exclusao e controlada pelo back para manter o historico consistente.
+                                                                               
       await excluirPet(id)
       setMensagem('Pet excluido com sucesso.')
       await recarregarPets()
@@ -243,7 +243,7 @@ function App() {
     limparMensagens()
 
     try {
-      // Cancela apenas consultas ainda agendadas.
+                                                  
       await cancelarConsulta(id)
       setMensagem('Consulta cancelada com sucesso.')
       await recarregarConsultas()

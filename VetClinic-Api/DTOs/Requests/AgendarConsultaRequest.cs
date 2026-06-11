@@ -1,6 +1,6 @@
 namespace VetClinic.DTOs.Requests
 {
-    // Requisicao enviada pelo front para agendar uma consulta.
+                                                               
     public class AgendarConsultaRequest
     {
         public Guid PetId { get; set; }

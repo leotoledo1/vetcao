@@ -1,6 +1,6 @@
 namespace VetClinic.DTOs
 {
-    // DTO de apoio para representar dados de consulta.
+                                                       
     public class CreateConsultaDTO
     {
         public Guid PetId { get; set; }

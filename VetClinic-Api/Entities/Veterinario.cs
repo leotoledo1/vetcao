@@ -1,6 +1,6 @@
 namespace VetClinic.Entities
 {
-    // Entidade que representa os veterinarios disponiveis.
+                                                           
     public class Veterinario : EntityBase
     {
         public string Nome { get; set; } = string.Empty;

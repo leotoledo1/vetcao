@@ -2,7 +2,7 @@ using VetClinic.Interfaces.IRepositories;
 
 namespace VetClinic.UseCases
 {
-    // Caso de uso responsavel por remover um pet com seguranca.
+                                                                
     public class ExcluirPetUseCase
     {
         private readonly IPetRepository _petRepository;

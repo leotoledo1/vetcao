@@ -4,7 +4,7 @@ using VetClinic.Interfaces.IRepositories;
 
 namespace VetClinic.Repositories
 {
-    // Repositorio simples para carregar veterinarios da base.
+                                                              
     public class VeterinarioRepository : IVeterinarioRepository
     {
         public readonly Context _database;

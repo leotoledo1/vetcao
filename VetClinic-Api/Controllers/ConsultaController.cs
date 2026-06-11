@@ -6,7 +6,7 @@ using VetClinic.UseCases;
 
 namespace VetClinic.Controllers
 {
-    // Controla as rotas de consulta e entrega os dados para o front.
+                                                                     
     [ApiController]
     [Route("[controller]")]
     public class ConsultaController : ControllerBase

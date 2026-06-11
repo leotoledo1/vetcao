@@ -5,7 +5,7 @@ using VetClinic.ValueObjects;
 
 namespace VetClinic.UseCases
 {
-    // Caso de uso responsavel por criar um dono novo.
+                                                      
     public class CadastrarDonoUseCase
     {
         private readonly IDonoRepository _donoRepository;

@@ -8,7 +8,7 @@ import {
   X,
 } from 'lucide-react'
 
-// Menu lateral responsavel por navegar entre dashboard, donos, pets e consultas.
+                                                                                 
 const iconMap = {
   dashboard: LayoutDashboard,
   donos: Users,

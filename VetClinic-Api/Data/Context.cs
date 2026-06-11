@@ -3,7 +3,7 @@ using VetClinic.Entities;
 
 namespace VetClinic.Data
 {
-    // Configuracao do Entity Framework para mapear as tabelas do sistema.
+                                                                          
     public class Context : DbContext
     {
         public Context(DbContextOptions options) : base(options)

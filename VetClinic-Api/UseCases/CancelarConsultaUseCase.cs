@@ -2,7 +2,7 @@ using VetClinic.Interfaces.IRepositories;
 
 namespace VetClinic.UseCases
 {
-    // Caso de uso responsavel por cancelar uma consulta agendada.
+                                                                  
     public class CancelarConsultaUseCase
     {
         private readonly IConsultaRepository _consultaRepository;

@@ -2,7 +2,7 @@ using VetClinic.Entities;
 
 namespace VetClinic.Interfaces.IRepositories
 {
-    // Contrato do repositorio de veterinarios.
+                                               
     public interface IVeterinarioRepository
     {
         public List<Veterinario> GetAll();

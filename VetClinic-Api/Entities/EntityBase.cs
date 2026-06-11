@@ -1,6 +1,6 @@
 namespace VetClinic.Entities
 {
-    // Base comum para todas as entidades do sistema.
+                                                     
     public class EntityBase
     {
         public Guid Id { get; set; }

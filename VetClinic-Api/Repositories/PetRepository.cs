@@ -5,7 +5,7 @@ using VetClinic.Interfaces.IRepositories;
 
 namespace VetClinic.Repositories
 {
-    // Acesso ao banco para operacoes com pets.
+                                               
     public class PetRepository : IPetRepository
     {
         public readonly Context _database;

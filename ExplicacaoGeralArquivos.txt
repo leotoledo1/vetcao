@@ -1,0 +1,50 @@
+Explicacao geral dos arquivos do projeto VetClinic
+
+1) Context.cs
+- Papel: representar o banco de dados dentro da aplicacao.
+- Funcao: configurar como as entidades (Dono, Pet, Veterinario, Consulta) sao mapeadas para tabelas e como elas se relacionam.
+- Onde e usado: o contexto e injetado nos repositorios para executar consultas, inserir registros e salvar alteracoes.
+
+2) PetRepository.cs
+- Papel: acessar os dados de Pet diretamente no banco.
+- Funcao: criar, atualizar, remover e listar pets, alem de verificar se existe consulta futura para um pet.
+- Onde e usado: os servicos e controllers chamam este repositorio para ler e escrever informacoes de pets.
+
+3) VeterinarioRepository.cs
+- Papel: acessar os dados de Veterinario no banco.
+- Funcao: listar veterinarios ativos, buscar um veterinario por id e cadastrar novos veterinarios.
+- Onde e usado: o controller de consultas e outros componentes usam este repositorio para obter a lista de veterinarios.
+
+4) ConsultaRepository.cs
+- Papel: acessar os dados de Consulta no banco.
+- Funcao: criar consultas, listar todas com dados de pet e veterinario, buscar consulta por id, atualizar consulta e verificar conflito de horario.
+- Onde e usado: esta logica e fundamental para agendar consultas e garantir que nao exista sobreposicao de horarios.
+
+5) DonoService.cs
+- Papel: aplicar regras de negocio ao trabalhar com donos.
+- Funcao: validar CPF, verificar duplicidade, criar novo dono, buscar dono por id, listar todos os donos e remover dono logicamente.
+- Onde e usado: o controller de dono chama este servico para processar dados antes de gravar no banco.
+
+6) ConsultaService.cs
+- Papel: fornecer operacoes de consulta simples relacionadas a consultas agendadas.
+- Funcao: listar consultas e buscar uma consulta especifica por id.
+- Onde e usado: o controller de consulta usa este servico para devolver dados para o frontend.
+
+7) Interfaces
+- Papel: definir contratos entre camadas do sistema.
+- Funcao: descrevem o que os repositorios e servicos devem fazer, sem dizer como fazer.
+- Onde e usado: facilitam o uso de injeção de dependencia e deixam o codigo mais organizado.
+- Principais interfaces:
+  - IDonoRepository: define as operacoes de dados para donos.
+  - IPetRepository: define as operacoes de dados para pets.
+  - IVeterinarioRepository: define as operacoes de dados para veterinarios.
+  - IConsultaRepository: define as operacoes de dados para consultas.
+  - IDonoService: define as operacoes de negocio para donos.
+  - IConsultaService: define as operacoes de negocio para consultas.
+
+Resumo geral do fluxo:
+- O frontend faz requisicoes HTTP para os controllers na API.
+- Os controllers recebem os pedidos e chamam servicos ou repositorios.
+- Os servicos aplicam regras de negocio e usam os repositorios para acessar o banco.
+- Os repositorios usam o Context para executar as operacoes no banco.
+- As interfaces garantem que cada camada siga um contrato claro.

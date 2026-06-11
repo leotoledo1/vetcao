@@ -4,7 +4,7 @@ using VetClinic.Interfaces.IRepositories;
 
 namespace VetClinic.UseCases
 {
-    // Caso de uso responsavel por criar um pet novo.
+                                                     
     public class CadastrarPetUseCase
     {
         private readonly IPetRepository _petRepository;

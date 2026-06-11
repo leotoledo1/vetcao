@@ -3,7 +3,7 @@ using VetClinic.Entities;
 
 namespace VetClinic.Interfaces.IServices
 {
-    // Contrato do service de donos.
+                                    
     public interface IDonoService
     {
         public List<Dono> ListarDonos();

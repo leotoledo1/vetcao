@@ -5,7 +5,7 @@ using VetClinic.UseCases;
 
 namespace VetClinic.Controllers
 {
-    // Expõe as rotas de pet usadas pelo front para listar, cadastrar e excluir.
+                                                                                
     [ApiController]
     [Route("[controller]")]
     public class PetController : ControllerBase
